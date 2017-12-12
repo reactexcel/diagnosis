@@ -16,6 +16,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { Popover,Tooltip, Button, Modal, OverlayTrigger } from 'react-bootstrap';
 import * as actions from './actions';
+import DiagnosesList from '../../components/DiagnosesList';
 
 export class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
 	
@@ -24,7 +25,9 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.state = {
-    	showModal: false
+      isLoading: false,
+    	showModal: false,
+      diagnosesList: []
     };
   }
 
@@ -35,11 +38,21 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
   }
 
   open() {
+    this.setState({ 
+      isLoading: true 
+    });
   	this.props.getDiagnosesList().then((res) => {
   		console.log('----res')
   		console.log(res)
+      this.setState({
+        diagnosesList: res.data.data
+      })
+      this.setState({ 
+        showModal: true,
+        isLoading: false
+      });
   	});
-    this.setState({ showModal: true });
+    
   }
 
 	componentDidMount(){
@@ -50,16 +63,17 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
 
   	console.log('******')
   	console.log( this.props )
-
+    let isLoading = this.state.isLoading;
     return (
     	<div>
       	<div>
         <Button
           bsStyle="primary"
           bsSize="large"
-          onClick={this.open}
+          disabled={isLoading}
+          onClick={!isLoading ? this.open : null}
         >
-          Launch demo modal
+          {isLoading ? 'Fetching Diagnoses List...' : 'Diagnoses List'}
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
@@ -67,8 +81,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
             <Modal.Title>Diagnoses List</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
-            
+            <DiagnosesList list={this.state.diagnosesList}/>            
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
