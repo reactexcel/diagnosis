@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Table, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+var DatePicker = require("react-bootstrap-date-picker");
 
 function FieldGroup({ id, label, help, ...props }) {
   return (
@@ -15,22 +16,29 @@ class AddNewDiagnose extends Component { // eslint-disable-line react/prefer-sta
 
 	constructor (props) {
     super(props);
+    this.state ={
+       value :new Date().toISOString()
+    }
     this.formSubmit = this.formSubmit.bind(this);
   }
 
   formSubmit(e){
   	e.preventDefault();
   	let form = e.target
-		let diagnoseDate = form.elements.diagnoseDate.value;
+		// let diagnoseDate = form.elements.diagnoseDate.value;
 		let diagnoseText = form.elements.diagnoseText.value;
 		let diagnoseNote = form.elements.diagnoseNote.value;
 		this.props.addNewDiagnose({
-			diagnoseDate: diagnoseDate,
+			diagnoseDate: this.state.value,
 			diagnoseText: diagnoseText,
 			diagnoseNote: diagnoseNote
 		});
   }
-
+  handleChange(value) {
+    this.setState({
+      value: value// ISO String, ex: "2016-11-19T12:00:00.000Z"
+    });
+  }
   render() {
     return (
       <div>
@@ -40,12 +48,10 @@ class AddNewDiagnose extends Component { // eslint-disable-line react/prefer-sta
           </Col>
 	      </Row>
       	<form onSubmit={this.formSubmit}>
-  		    <FieldGroup
-            className="input-color"
-  		      id="diagnoseDate"
-  		      type="text"
-  		      label="Date of Diagnose"
-  		    />
+          <FormGroup>
+            <ControlLabel>Date of Diagnoses</ControlLabel>
+            <DatePicker className="input-color" id="diagnoseDate" value={this.state.value} onChange={(value)=>{this.handleChange(value)}} />
+          </FormGroup>
   		    <FieldGroup
             className="input-color"
   		      id="diagnoseText"
@@ -61,7 +67,7 @@ class AddNewDiagnose extends Component { // eslint-disable-line react/prefer-sta
   		    />
           <Row>
             <Col sm={3} md={6} className="header-text">
-              <Button className="close-button" type="Cancel">
+              <Button className="close-button" >
                 Cancel
               </Button>
             </Col>
