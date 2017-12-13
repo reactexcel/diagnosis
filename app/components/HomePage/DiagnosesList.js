@@ -42,7 +42,7 @@ class DiagnosesList extends Component { // eslint-disable-line react/prefer-stat
           <Row>
             <Col sm={3} md={6}></Col>
             <Col sm={3} md={6} className="text-right">
-              <Button bsStyle="primary" className="close-button" onClick={this.props.closeModal}>Close</Button>
+              <Button className="btn close-button" onClick={this.props.closeModal}>Close</Button>
             </Col>
           </Row>
         </div>

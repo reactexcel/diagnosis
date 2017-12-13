@@ -46,7 +46,7 @@ injectGlobal`
   }
 
   .diagnose-list {
-    margin-top:7px
+    margin-top:7px;
   }
 
   .diagnose-list td {
@@ -54,7 +54,14 @@ injectGlobal`
   }
 
   .close-button {
-    background-color: #818181
+    background-color: #818181;
+    color: #FFF;
+    border-radius: 0px;
+  }
+
+  .modal-content {
+    border-radius: 0px;
+    border: 3px solid #e2e2e2; 
   }
 
 `;
