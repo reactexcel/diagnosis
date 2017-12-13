@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Button, Glyphicon } from 'react-bootstrap';
 import ModalWindow from '../ModalWindow';
 import AddNewDiagnose from './AddNewDiagnose';
 
@@ -34,18 +34,23 @@ class DiagnoseListHeader extends Component { // eslint-disable-line react/prefer
   
   render() {
     return (
-    	<Grid>    	
-	    	<Row>
-	      <Col sm={6} md={3}><div>Diagnoses</div></Col>
-	      <Col sm={6} md={3}>
-	      	<Button bsStyle="primary" bsSize="xsmall" onClick={this.open}>New</Button>
+      <div>      	
+	    	<Row className="diagnose-list-header">
+	      <Col sm={3} md={6} className="header-text">
+          <div>Diagnoses</div>
+        </Col>
+	      <Col sm={3} md={6} className="text-right">
+          <Button bsStyle="link" onClick={this.open} className="add-new-link">Add new <Glyphicon glyph="plus-sign" /></Button>
 	      </Col>
-	    </Row>
+	    </Row>        
+      
 	    <ModalWindow 
         showModal={this.state.showModal}
       	body={<AddNewDiagnose addNewDiagnose={this.addNewDiagnose}/>}
       />
-  	</Grid>
+
+      </div>
+  	
     );
   }
 }

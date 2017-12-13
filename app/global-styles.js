@@ -27,4 +27,34 @@ injectGlobal`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
+
+  .diagnose-list-header {
+    background-color: #d4497f;
+    padding: 5px;
+    color: #FFF;
+    margin-top:-15px;
+  }
+
+  .diagnose-list-header .header-text {
+    font-size:16px;
+    margin-top:7px;
+  }
+
+  .diagnose-list-header .add-new-link {
+    color: #FFF;
+    font-size:11px;
+  }
+
+  .diagnose-list {
+    margin-top:7px
+  }
+
+  .diagnose-list td {
+    border-top: 1px dotted red;
+  }
+
+  .close-button {
+    background-color: #818181
+  }
+
 `;

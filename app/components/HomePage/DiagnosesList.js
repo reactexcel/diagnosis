@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table } from 'react-bootstrap';
+import { Table, Row, Col, Button } from 'react-bootstrap';
 import DiagnoseListHeader from './DiagnoseListHeader';
 
 class DiagnosesList extends Component { // eslint-disable-line react/prefer-stateless-function
@@ -24,7 +24,7 @@ class DiagnosesList extends Component { // eslint-disable-line react/prefer-stat
     return (
       <div>
         <DiagnoseListHeader addNewDiagnose={this.props.addNewDiagnose}/>
-      	<Table striped bordered condensed hover>
+      	<Table responsive className="diagnose-list">
           <thead>
             <tr>
               <th>Date</th>
@@ -38,6 +38,14 @@ class DiagnosesList extends Component { // eslint-disable-line react/prefer-stat
             {listData}
           </tbody>
         </Table>
+        <div>       
+          <Row>
+            <Col sm={3} md={6}></Col>
+            <Col sm={3} md={6} className="text-right">
+              <Button bsStyle="primary" className="close-button" onClick={this.props.closeModal}>Close</Button>
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }

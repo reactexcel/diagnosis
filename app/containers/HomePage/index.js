@@ -13,11 +13,18 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
 	constructor (props) {
     super(props);
     this.open = this.open.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.state = {
       isLoading: false,
     	showModal: false,
       diagnosesList: []
     };
+  }
+
+  closeModal() {
+    this.setState({ 
+      showModal: false 
+    });
   }
 
   open() {
@@ -53,7 +60,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
 
         <ModalWindow 
           showModal={this.state.showModal}
-          body={<DiagnosesList list={this.state.diagnosesList} addNewDiagnose={this.props.addNewDiagnose}/>}
+          body={<DiagnosesList list={this.state.diagnosesList} addNewDiagnose={this.props.addNewDiagnose} closeModal={this.closeModal}/>}
         />
       </div>
     );
