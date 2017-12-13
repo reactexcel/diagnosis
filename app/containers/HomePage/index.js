@@ -9,7 +9,7 @@ import DiagnosesList from '../../components/HomePage/DiagnosesList';
 import ModalWindow from '../../components/ModalWindow';
 
 export class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
-	
+
 	constructor (props) {
     super(props);
     this.open = this.open.bind(this);
@@ -22,17 +22,17 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
   }
 
   closeModal() {
-    this.setState({ 
-      showModal: false 
+    this.setState({
+      showModal: false
     });
   }
 
   open() {
-    this.setState({ 
-      isLoading: true 
+    this.setState({
+      isLoading: true
     });
   	this.props.getDiagnosesList().then((res) => {
-      this.setState({ 
+      this.setState({
         showModal: true,
         isLoading: false
       });
@@ -40,7 +40,7 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({ 
+    this.setState({
       diagnosesList: nextProps.diagnosesList,
     });
   }
@@ -48,17 +48,19 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
   render() {
     let isLoading = this.state.isLoading;
     return (
-    	<div>
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          disabled={isLoading}
-          onClick={!isLoading ? this.open : null}
-        >
-          {isLoading ? 'Fetching Diagnoses List...' : 'Diagnoses List'}
-        </Button>
+    	<div >
+				<div className="button-center">
+	        <Button
+	          bsStyle="primary"
+	          bsSize="large"
+	          disabled={isLoading}
+	          onClick={!isLoading ? this.open : null}
+	        >
+	          {isLoading ? 'Fetching Diagnoses List...' : 'Diagnoses List'}
+	        </Button>
+				</div>
 
-        <ModalWindow 
+        <ModalWindow
           showModal={this.state.showModal}
           body={<DiagnosesList list={this.state.diagnosesList} addNewDiagnose={this.props.addNewDiagnose} closeModal={this.closeModal}/>}
         />
