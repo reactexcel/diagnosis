@@ -3,17 +3,17 @@ import { Table, Row, Col, Button } from 'react-bootstrap';
 import DiagnoseListHeader from './DiagnoseListHeader';
 
 class DiagnosesList extends Component { // eslint-disable-line react/prefer-stateless-function
-	
+
 	constructor (props) {
     super(props);
   }
-  
+
   render() {
     let listData = this.props.list.map((row)=>{
       return (
         <tr key={row.id}>
           <td>{row.date}</td>
-          <td>{row.diagnosis}</td>
+          <td className="td-color">{row.diagnosis}</td>
           <td>{row.diagnoseType}</td>
           <td>{row.notice}</td>
           <td>{row.actuaryInfo}</td>
@@ -38,7 +38,7 @@ class DiagnosesList extends Component { // eslint-disable-line react/prefer-stat
             {listData}
           </tbody>
         </Table>
-        <div>       
+        <div>
           <Row>
             <Col sm={3} md={6}></Col>
             <Col sm={3} md={6} className="text-right">

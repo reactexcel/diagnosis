@@ -42,7 +42,8 @@ injectGlobal`
 
   .diagnose-list-header .add-new-link {
     color: #FFF;
-    font-size:11px;
+    font-size:14px;
+    margin-right: -16px;
   }
 
   .diagnose-list {
@@ -83,5 +84,11 @@ injectGlobal`
     text-align: center;
     padding-top: 100px;
   }
+  .icon-style{
+    top:3px;
+    left:2px;
+  }
+  .td-color {
+    color:#337ab7
   }
 `;
