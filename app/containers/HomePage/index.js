@@ -1,28 +1,17 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import { Popover,Tooltip, Button, Modal, OverlayTrigger } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import * as actions from './actions';
-import DiagnosesList from '../../components/DiagnosesList';
+import DiagnosesList from '../../components/HomePage/DiagnosesList';
+import ModalWindow from '../../components/ModalWindow';
 
 export class HomePage extends Component { // eslint-disable-line react/prefer-stateless-function
 	
 	constructor (props) {
     super(props);
-    this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.state = {
       isLoading: false,
@@ -31,42 +20,28 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
     };
   }
 
-  close() {
-    this.setState({ 
-    	showModal: false 
-    });
-  }
-
   open() {
     this.setState({ 
       isLoading: true 
     });
   	this.props.getDiagnosesList().then((res) => {
-  		console.log('----res')
-  		console.log(res)
-      this.setState({
-        diagnosesList: res.data.data
-      })
       this.setState({ 
         showModal: true,
         isLoading: false
       });
   	});
-    
   }
 
-	componentDidMount(){
-		//this.props.getDiagnosesList();
-	}
+  componentWillReceiveProps(nextProps){
+    this.setState({ 
+      diagnosesList: nextProps.diagnosesList,
+    });
+  }
 
   render() {
-
-  	console.log('******')
-  	console.log( this.props )
     let isLoading = this.state.isLoading;
     return (
     	<div>
-      	<div>
         <Button
           bsStyle="primary"
           bsSize="large"
@@ -76,34 +51,30 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
           {isLoading ? 'Fetching Diagnoses List...' : 'Diagnoses List'}
         </Button>
 
-        <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Diagnoses List</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <DiagnosesList list={this.state.diagnosesList}/>            
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+        <ModalWindow 
+          showModal={this.state.showModal}
+          body={<DiagnosesList list={this.state.diagnosesList} addNewDiagnose={this.props.addNewDiagnose}/>}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = createSelector(
-  // makeSelectLocale(),
-  (locale) => ({ locale })
-);
+const mapStateToProps = (state, ownProps = {}) => {
+  return {
+    diagnosesList: state.toJS().diagnosesList.diagnosesList
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {
   	getDiagnosesList: () =>{
   		return dispatch(actions.getDiagnosesList());
   	},
-    dispatch,
+    addNewDiagnose: (data) => {
+      return dispatch(actions.addNewDiagnose(data));
+    },
+    dispatch
   };
 }
 
