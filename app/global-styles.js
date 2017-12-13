@@ -42,7 +42,8 @@ injectGlobal`
 
   .diagnose-list-header .add-new-link {
     color: #FFF;
-    font-size:11px;
+    font-size:14px;
+    margin-right: -16px;
   }
 
   .diagnose-list {
@@ -54,14 +55,40 @@ injectGlobal`
   }
 
   .close-button {
-    background-color: #818181;
+    padding: 6px 22px;
+    background-color: #585757;
     color: #FFF;
     border-radius: 0px;
   }
 
   .modal-content {
     border-radius: 0px;
-    border: 3px solid #e2e2e2; 
+    border: 3px solid #e2e2e2;
   }
-
+  .diagnose-addNew-header {
+    background-color: #d4497f;
+    padding: 9px 2px;
+    color: #FFF;
+    margin-top:-15px;
+    margin-bottom: 10px;
+  }
+  .text-area {
+    height: 90px
+  }
+  .input-color {
+    border: 0px ;
+    background-color: #eeeeee;
+    border-radius: 0px;
+  }
+  .button-center {
+    text-align: center;
+    padding-top: 100px;
+  }
+  .icon-style{
+    top:3px;
+    left:2px;
+  }
+  .td-color {
+    color:#337ab7
+  }
 `;
