@@ -67,7 +67,7 @@ class AddNewDiagnose extends Component { // eslint-disable-line react/prefer-sta
   		    />
           <Row>
             <Col sm={3} md={6} className="header-text">
-              <Button className="close-button" >
+              <Button onClick={()=>{this.props.closeAddNewModal()}} className="close-button" >
                 Cancel
               </Button>
             </Col>
