@@ -6,9 +6,7 @@
 
 import { fromJS } from 'immutable';
 
-import {
-  DIAGNOSE_LIST,
-} from './constants';
+import * as constants from './constants';
 
 const initialState = fromJS({
   diagnosesList: [],
@@ -16,9 +14,12 @@ const initialState = fromJS({
 
 function diagnosesListReducer(state = initialState, action) {
   switch (action.type) {
-    case DIAGNOSE_LIST:
+    case constants.DIAGNOSE_LIST_SUCCESS:
       return state
-        .set('diagnosesList', action.diagnosesList);
+        .set('diagnosesList', action.payload.diagnosesList);
+    case constants.DIAGNOSE_LIST_ERROR:
+      return state
+        .set('diagnosesList', action.payload.diagnosesList);
     default:
       return state;
   }

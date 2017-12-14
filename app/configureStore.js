@@ -9,6 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 import promise from "redux-promise-middleware";
 import thunk from "redux-thunk";
+import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -48,7 +49,7 @@ export default function configureStore(initialState = {}, history) {
   );
 
   // Extensions
-  store.runSaga = sagaMiddleware.run;
+  store.runSaga = sagaMiddleware.run(rootSaga);
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
 

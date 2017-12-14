@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { Button } from 'react-bootstrap';
-import * as actions from './actions';
+import * as actions from './action';
 import DiagnosesList from '../../components/HomePage/DiagnosesList';
 import ModalWindow from '../../components/ModalWindow';
 
@@ -31,18 +31,23 @@ export class HomePage extends Component { // eslint-disable-line react/prefer-st
     this.setState({
       isLoading: true
     });
-  	this.props.getDiagnosesList().then((res) => {
+  	this.props.diagnoseListRequest();
       this.setState({
         showModal: true,
         isLoading: false
       });
-  	});
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({
       diagnosesList: nextProps.diagnosesList,
     });
+		if(this.props.diagnosesList !== null) {
+			this.setState({
+        showModal: true,
+        isLoading: false
+      });
+		}
   }
 
   render() {
@@ -77,13 +82,12 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-  	getDiagnosesList: () =>{
-  		return dispatch(actions.getDiagnosesList());
+  	diagnoseListRequest: () =>{
+  		return dispatch(actions.diagnoseListRequest());
   	},
     addNewDiagnose: (data) => {
-      return dispatch(actions.addNewDiagnose(data));
-    },
-    dispatch
+      return dispatch(actions.addDiagnoseListRequest(data));
+    }
   };
 }
 

@@ -12,6 +12,7 @@ class DiagnoseListHeader extends Component { // eslint-disable-line react/prefer
     };
     this.open = this.open.bind(this);
     this.addNewDiagnose = this.addNewDiagnose.bind(this);
+		this.closeAddNewModal = this.closeAddNewModal.bind(this);
   }
 
   open() {
@@ -25,12 +26,16 @@ class DiagnoseListHeader extends Component { // eslint-disable-line react/prefer
 			diagnoseDate: diagnoseDate,
 			diagnoseText: diagnoseText,
 			diagnoseNote: diagnoseNote
-		}).then(()=>{
+		})
 			this.setState({
 		    showModal: false
 		  });
-		})
   }
+	closeAddNewModal() {
+		this.setState({
+			showModal: false
+		});
+	}
 
   render() {
     return (
@@ -46,7 +51,7 @@ class DiagnoseListHeader extends Component { // eslint-disable-line react/prefer
 
 	    <ModalWindow
         showModal={this.state.showModal}
-      	body={<AddNewDiagnose addNewDiagnose={this.addNewDiagnose}/>}
+      	body={<AddNewDiagnose addNewDiagnose={this.addNewDiagnose} closeAddNewModal={this.closeAddNewModal} />}
       />
 
       </div>
